@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">📝 Blogs</h2>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('add_blog') }}" class="btn btn-primary">➕ Add Blog</a>
+        {% endif %}
+    </div>
+
+    {% if blogs %}
+    <div class="row g-4">
+        {% for blog in blogs %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="text-muted mb-2">By {{ blog.author }} | {{ blog.created_at.strftime('%b %d, %Y') }}</p>
+                    <p class="card-text flex-grow-1">{{ blog.content[:120] }}{% if blog.content|length > 120 %}...{% endif %}</p>
+                    <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <a href="{{ url_for('blog_detail', blog_id=blog.id) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+
+                        {% if current_user.is_authenticated %}
+                        <div class="d-flex gap-1 flex-wrap">
+                            <a href="{{ url_for('edit_blog', blog_id=blog.id) }}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                            <form action="{{ url_for('delete_blog', blog_id=blog.id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">🗑️ Delete</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center text-muted">No blogs yet. Stay tuned!</p>
+    {% endif %}
+</div>
+
+{% endblock %}

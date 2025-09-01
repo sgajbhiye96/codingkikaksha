@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">📚 My Courses</h2>
+
+  {% if courses %}
+    <div class="row g-4">
+      {% for enrollment in current_user.enrollments %}
+      <div class="col-md-4">
+        <div class="card shadow-sm hover-card h-100">
+          <div class="card-body">
+            <h5 class="fw-bold">{{ enrollment.course.title }}</h5>
+            <p class="text-muted">{{ enrollment.course.description[:100] }}...</p>
+            <p><strong>Category:</strong> {{ enrollment.course.category }}</p>
+            <p><strong>Price:</strong> ₹{{ enrollment.course.price }}</p>
+            <p><strong>Rating:</strong> ⭐ {{ enrollment.course.rating }}</p>
+
+            <!-- Progress bar -->
+            <label class="fw-bold">Progress</label>
+            <div class="progress mb-3" style="height: 20px;">
+              <div class="progress-bar bg-success" role="progressbar" 
+                   style="width: {{ enrollment.progress }}%;" 
+                   aria-valuenow="{{ enrollment.progress }}" 
+                   aria-valuemin="0" aria-valuemax="100">
+                   {{ enrollment.progress }}%
+              </div>
+            </div>
+
+            <a href="{{ url_for('course_detail', course_id=enrollment.course.id) }}" 
+               class="btn btn-primary">Continue</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">You haven’t enrolled in any courses yet. 🚀</div>
+    <a href="{{ url_for('courses') }}" class="btn btn-outline-primary">Browse Courses</a>
+  {% endif %}
+</div>
+
+{% endblock %}

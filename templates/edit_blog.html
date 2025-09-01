@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">✏️ Edit Blog</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" value="{{ blog.title }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Content</label>
+      <textarea class="form-control" name="content" rows="5" required>{{ blog.content }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Author</label>
+      <input type="text" class="form-control" name="author" value="{{ blog.author }}" required>
+    </div>
+    <button type="submit" class="btn btn-warning">Update</button>
+    <a href="{{ url_for('blogs') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

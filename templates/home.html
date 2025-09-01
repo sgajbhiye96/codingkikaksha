@@ -1,0 +1,153 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero d-flex align-items-center text-light text-center" 
+         style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); min-height: 90vh;">
+    <div class="container">
+        <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Learn. Upskill. Succeed 🚀</h1>
+        <p class="lead mt-3 animate__animated animate__fadeInUp">High-quality, affordable courses to boost your career.</p>
+        <div class="mt-4">
+            <a href="{{ url_for('courses') }}" class="btn btn-light btn-lg me-3 shadow-sm hero-btn">Explore Courses</a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg shadow-sm hero-btn">Join Now</a>
+        </div>
+        <!-- <div class="mt-5">
+            <img src="{{ url_for('static', filename='images/img.jpg') }}" 
+                 alt="Learning" class="img-fluid animate__animated animate__fadeInUp hero-img">
+        </div> -->
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h2 class="fw-bold mb-4">📂 Popular Categories</h2>
+        <div class="row g-4">
+            <div class="col-6 col-md-3">
+                <a href="{{ url_for('courses', category='Programming') }}" class="category-card">💻 Tech & Programming</a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{{ url_for('courses', category='Data Science') }}" class="category-card">📊 Data Science</a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{{ url_for('courses', category='Business') }}" class="category-card">💼 Business</a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="{{ url_for('courses', category='Design') }}" class="category-card">🎨 Design</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trending Courses -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-center">🔥 Trending Courses</h2>
+    
+    <div id="trendingCoursesCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for course in courses %}
+        <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <div class="card shadow-sm hover-card">
+                <div class="card-body text-start">
+                  <h5 class="fw-bold">{{ course.title }}</h5>
+                  <p class="text-muted">{{ course.description[:100] }}...</p>
+                  <p><strong>Category:</strong> {{ course.category }}</p>
+                  <p><strong>Price:</strong> ₹{{ course.price }}</p>
+                  <p><strong>Rating:</strong> ⭐ {{ course.rating }}</p>
+                  <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-outline-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#trendingCoursesCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#trendingCoursesCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+      </button>
+    </div>
+
+    <div class="text-center mt-3">
+      <a href="{{ url_for('courses') }}" class="btn btn-primary">View All Courses</a>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-5">Our Achievements 🎯</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-3">
+                <div class="achievement-card p-4 shadow-sm rounded">
+                    <h2 class="text-primary">50K+</h2>
+                    <p>Learners</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="achievement-card p-4 shadow-sm rounded">
+                    <h2 class="text-success">500+</h2>
+                    <p>Courses</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="achievement-card p-4 shadow-sm rounded">
+                    <h2 class="text-warning">100+</h2>
+                    <p>Instructors</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="achievement-card p-4 shadow-sm rounded">
+                    <h2 class="text-danger">4.8⭐</h2>
+                    <p>Avg Rating</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-5">💬 What Our Learners Say</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for testimonial in testimonials %}
+                <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card shadow-sm p-4 text-start">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="{{ testimonial.avatar }}" alt="{{ testimonial.name }}" class="rounded-circle me-3" width="60" height="60">
+                                    <div>
+                                        <h5 class="mb-0">{{ testimonial.name }}</h5>
+                                        <small class="text-muted">{{ testimonial.role }}</small>
+                                    </div>
+                                </div>
+                                <p class="mb-0">"{{ testimonial.feedback }}"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-center">All Courses 📚</h2>
+
+    <!-- Filters -->
+    <form method="get" class="row g-3 mb-4">
+      <div class="col-md-4">
+        <input type="text" name="search" class="form-control" placeholder="Search by title..." value="{{ request.args.get('search', '') }}">
+      </div>
+      <div class="col-md-4">
+        <select name="category" class="form-select">
+          <option value="">All Categories</option>
+          <option value="Programming" {% if request.args.get('category')=='Programming' %}selected{% endif %}>Tech & Programming</option>
+          <option value="Data Science" {% if request.args.get('category')=='Data Science' %}selected{% endif %}>Data Science</option>
+          <option value="Business" {% if request.args.get('category')=='Business' %}selected{% endif %}>Business</option>
+          <option value="Design" {% if request.args.get('category')=='Design' %}selected{% endif %}>Design</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <select name="sort" class="form-select">
+          <option value="">Sort By</option>
+          <option value="price" {% if request.args.get('sort')=='price' %}selected{% endif %}>Price (Low → High)</option>
+          <option value="rating" {% if request.args.get('sort')=='rating' %}selected{% endif %}>Rating (High → Low)</option>
+        </select>
+      </div>
+      <div class="col-12 text-center">
+        <button class="btn btn-primary mt-2">Apply Filters</button>
+      </div>
+    </form>
+
+    <!-- Courses Grid -->
+    <div class="row g-4">
+      {% for course in courses %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-sm hover-card h-100">
+          <div class="card-body">
+            <h5 class="fw-bold">{{ course.title }}</h5>
+            <p class="text-muted">{{ course.description[:100] }}...</p>
+            <p><strong>Category:</strong> {{ course.category }}</p>
+            <p><strong>Price:</strong> ₹{{ course.price }}</p>
+            <p><strong>Rating:</strong> ⭐ {{ course.rating }}</p>
+            <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-outline-primary mt-2">View Course</a>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-12">
+        <p class="text-center text-muted">No courses found 😔</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

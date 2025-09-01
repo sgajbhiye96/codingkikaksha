@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container py-5">
+  <div class="row">
+    <!-- Course Info -->
+    <div class="col-md-8">
+      <h1 class="fw-bold">{{ course.title }}</h1>
+      <p class="text-muted">📂 Category: {{ course.category }}</p>
+      <p class="lead">{{ course.description }}</p>
+      
+      <div class="mt-4">
+        <h4>💰 Price: ₹{{ course.price }}</h4>
+        <p>⭐ Rating: {{ course.rating }}</p>
+      </div>
+    </div>
+
+    <!-- Enrollment Card -->
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h5 class="fw-bold mb-3">Enroll in this course</h5>
+
+        {% if current_user.is_authenticated %}
+          <form action="{{ url_for('enroll', course_id=course.id) }}" method="POST">
+            <button type="submit" class="btn btn-primary btn-lg w-100">🚀 Enroll Now</button>
+          </form>
+        {% else %}
+          <p class="text-muted">Please log in to enroll.</p>
+          <a href="{{ url_for('login') }}" class="btn btn-outline-primary w-100">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

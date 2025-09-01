@@ -1,0 +1,56 @@
+/* Category Cards */
+.category-card {
+    display: block;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
+    text-align: center;
+}
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Trending Courses Scroll */
+.trending-courses {
+    scroll-behavior: smooth;
+}
+.trending-courses::-webkit-scrollbar {
+    height: 8px;
+}
+.trending-courses::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
+/* Hover Card */
+.hover-card:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+/* Achievement Card */
+.achievement-card h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Hero Image */
+.hero-img {
+    max-height: 400px;
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Hero Buttons Hover */
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
