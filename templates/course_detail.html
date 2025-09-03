@@ -1,36 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-
 <div class="container py-5">
-  <div class="row">
-    <!-- Course Info -->
-    <div class="col-md-8">
-      <h1 class="fw-bold">{{ course.title }}</h1>
-      <p class="text-muted">📂 Category: {{ course.category }}</p>
-      <p class="lead">{{ course.description }}</p>
-      
-      <div class="mt-4">
-        <h4>💰 Price: ₹{{ course.price }}</h4>
-        <p>⭐ Rating: {{ course.rating }}</p>
-      </div>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-    <!-- Enrollment Card -->
-    <div class="col-md-4">
-      <div class="card shadow-sm p-4">
-        <h5 class="fw-bold mb-3">Enroll in this course</h5>
+            <!-- Course Card -->
+            <div class="card shadow-lg border-0 rounded-3 p-4">
+                <div class="card-body">
 
-        {% if current_user.is_authenticated %}
-          <form action="{{ url_for('enroll', course_id=course.id) }}" method="POST">
-            <button type="submit" class="btn btn-primary btn-lg w-100">🚀 Enroll Now</button>
-          </form>
-        {% else %}
-          <p class="text-muted">Please log in to enroll.</p>
-          <a href="{{ url_for('login') }}" class="btn btn-outline-primary w-100">Login</a>
-        {% endif %}
-      </div>
+                    <!-- Title -->
+                    <h2 class="fw-bold mb-3">{{ course.title }}</h2>
+
+                    <!-- Description -->
+                    <p class="text-muted mb-4">{{ course.description }}</p>
+
+                    <!-- Meta Info -->
+                    <ul class="list-unstyled mb-4">
+                        <li><strong>📂 Category:</strong> {{ course.category }}</li>
+                        <li><strong>💰 Price:</strong> ₹{{ course.price }}</li>
+                        <li><strong>⭐ Rating:</strong> {{ course.rating }}</li>
+                    </ul>
+
+                    <!-- Actions -->
+                    <div class="d-flex gap-3">
+                        <a href="{{ url_for('courses') }}" class="btn btn-secondary">⬅ Back</a>
+
+                        {% if current_user.is_authenticated and current_user.is_admin %}
+                            <a href="{{ url_for('edit_course', course_id=course.id) }}" class="btn btn-warning">✏ Edit</a>
+                            <form action="{{ url_for('delete_course', course_id=course.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">🗑 Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
-
 {% endblock %}

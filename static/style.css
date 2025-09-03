@@ -1,56 +1,258 @@
-/* Category Cards */
-.category-card {
-    display: block;
-    background: #fff;
-    border-radius: 10px;
-    padding: 30px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    font-weight: 600;
-    text-decoration: none;
-    color: #000;
-    text-align: center;
-}
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+/* ==================== RESET ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Trending Courses Scroll */
-.trending-courses {
+html {
     scroll-behavior: smooth;
 }
-.trending-courses::-webkit-scrollbar {
-    height: 8px;
-}
-.trending-courses::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 4px;
+
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    padding-top: 80px; /* Prevent navbar overlap */
 }
 
-/* Hover Card */
-.hover-card:hover {
-    transform: translateY(-5px);
+/* ==================== NAVBAR ==================== */
+.navbar {
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+    z-index: 1050; /* stay above hero */
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #00d4ff !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #00d4ff !important;
+}
+
+/* ==================== HERO ==================== */
+.hero {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: #f1f1f1;
+    margin-bottom: 1.8rem;
+}
+
+.hero-btn {
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
-/* Achievement Card */
-.achievement-card h2 {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-/* Hero Image */
-.hero-img {
-    max-height: 400px;
-    width: auto;
-    margin: 0 auto;
-}
-
-/* Hero Buttons Hover */
 .hero-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ==================== HERO IMAGE ==================== */
+.hero-img {
+    max-height: 420px;
+    width: 100%;
+    object-fit: cover;
+    margin-top: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform 0.4s ease;
+}
+
+.hero-img:hover {
+    transform: scale(1.03);
+}
+
+
+/* ==================== CATEGORY CARDS ==================== */
+/* Modern Category Cards */
+.category-card-modern {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  height: 200px;
+}
+
+.category-card-modern .icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.category-card-modern .title {
+  font-size: 10.5rem;
+  font-weight: bold;
+}
+
+.category-card-modern:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+}
+
+
+/* ==================== TRENDING COURSES ==================== */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
     transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+/* Carousel controls */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 60% 60%;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.5 0L4 1.5 6.5 4 4 6.5 5.5 8l4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4z'/%3E%3C/svg%3E");
+}
+
+/* ==================== ACHIEVEMENTS ==================== */
+.achievement-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+}
+
+.achievement-card h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+/* ==================== TESTIMONIALS ==================== */
+/* Testimonial Card */
+.testimonial-card {
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Avatar */
+.testimonial-avatar {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.testimonial-avatar:hover {
+    transform: scale(1.05);
+}
+
+/* Arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1); /* makes icons white */
+}
+
+
+/* ==================== FOOTER ==================== */
+footer {
+    background: #111;
+    color: #ddd;
+    font-size: 0.95rem;
+}
+
+footer h5 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #00d4ff;
+}
+
+hr.bg-light {
+    opacity: 0.3;
+}
+
+/* ==================== UTILITIES ==================== */
+.text-primary {
+    color: #2575fc !important;
+}
+.text-success {
+    color: #28a745 !important;
+}
+.text-warning {
+    color: #ffc107 !important;
+}
+.text-danger {
+    color: #dc3545 !important;
+}
+/* Overlay for Hero Slides */
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55); /* dark transparent overlay */
+    z-index: 1; /* behind text */
+}
+
+/* Text Content stays on top */
+.hero .hero-content {
+    position: relative;
+    z-index: 2; /* above overlay */
 }

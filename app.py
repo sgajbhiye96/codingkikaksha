@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 from datetime import datetime
+from functools import wraps
 # --------------------
 # App Config
 # --------------------
@@ -39,7 +40,14 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.is_admin:
+            flash("🚫 You do not have permission to access this page.", "danger")
+            return redirect(url_for("home"))
+        return f(*args, **kwargs)
+    return decorated_function
 # --------------------
 # Email Verification Setup
 # --------------------
@@ -268,6 +276,32 @@ def update_progress(enrollment_id, progress):
     flash("Progress updated!", "success")
     return redirect(url_for("my_courses"))
 
+@app.route("/course/<int:course_id>/edit", methods=["GET", "POST"])
+@login_required
+@admin_required
+def edit_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    if request.method == "POST":
+        course.title = request.form["title"]
+        course.description = request.form["description"]
+        course.price = request.form["price"]
+        course.category = request.form["category"]
+        db.session.commit()
+        flash("✅ Course updated successfully!", "success")
+        return redirect(url_for("course_detail", course_id=course.id))
+    return render_template("edit_course.html", course=course)
+
+
+@app.route("/course/<int:course_id>/delete", methods=["POST"])
+@login_required
+@admin_required
+def delete_course(course_id):
+    course = Course.query.get_or_404(course_id)
+    db.session.delete(course)
+    db.session.commit()
+    flash("🗑 Course deleted successfully!", "success")
+    return redirect(url_for("courses"))
+
 
 # Blogs listing page
 # Blogs listing - accessible to everyone
@@ -347,3 +381,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(host="0.0.0.0", port=5000, debug=False)
+    # app.run(host="0.0.0.0", port=5000, debug=True)

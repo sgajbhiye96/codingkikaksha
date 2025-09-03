@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">✏️ Edit Course</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        <!-- Course Title -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Course Title</label>
+                            <input type="text" name="title" id="title" class="form-control" 
+                                   value="{{ course.title }}" required>
+                        </div>
+
+                        <!-- Course Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Description</label>
+                            <textarea name="description" id="description" rows="4" class="form-control" required>{{ course.description }}</textarea>
+                        </div>
+
+                        <!-- Course Price -->
+                        <div class="mb-3">
+                            <label for="price" class="form-label fw-bold">Price (₹)</label>
+                            <input type="number" name="price" id="price" class="form-control" 
+                                   value="{{ course.price }}" step="0.01" required>
+                        </div>
+
+                        <!-- Course Category -->
+                        <div class="mb-3">
+                            <label for="category" class="form-label fw-bold">Category</label>
+                            <select name="category" id="category" class="form-select" required>
+                                <option value="Programming" {% if course.category == 'Programming' %}selected{% endif %}>💻 Programming</option>
+                                <option value="Data Science" {% if course.category == 'Data Science' %}selected{% endif %}>📊 Data Science</option>
+                                <option value="Business" {% if course.category == 'Business' %}selected{% endif %}>💼 Business</option>
+                                <option value="Design" {% if course.category == 'Design' %}selected{% endif %}>🎨 Design</option>
+                            </select>
+                        </div>
+
+                        <!-- Save Changes -->
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('course_detail', course_id=course.id) }}" class="btn btn-secondary">⬅ Back</a>
+                            <button type="submit" class="btn btn-success">💾 Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
