@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-5">Professional CV Builder</h1>
+
+  <!-- Template Selection -->
+  <div class="mb-4 text-center">
+    <label>Select Template: </label>
+    <select id="templateSelect" class="form-select w-auto d-inline-block">
+      <option value="template1">Modern Light</option>
+      <option value="template2">Dark Professional</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <!-- Form Section -->
+    <div class="col-md-6">
+      <div class="cv-form p-4 bg-light rounded shadow-sm">
+        <h4>Personal Info</h4>
+        <input type="text" id="name" class="form-control mb-2" placeholder="Full Name">
+        <input type="text" id="email" class="form-control mb-2" placeholder="Email">
+        <input type="text" id="phone" class="form-control mb-2" placeholder="Phone">
+        <input type="text" id="linkedin" class="form-control mb-2" placeholder="LinkedIn URL">
+
+        <!-- Dynamic Sections -->
+        <h4 class="mt-4">Education</h4>
+        <div id="educationFields"></div>
+        <button type="button" id="addEdu" class="btn btn-sm btn-outline-primary mb-2">+ Add Education</button>
+
+        <h4 class="mt-4">Experience</h4>
+        <div id="experienceFields"></div>
+        <button type="button" id="addExp" class="btn btn-sm btn-outline-primary mb-2">+ Add Experience</button>
+
+        <h4 class="mt-4">Projects</h4>
+        <div id="projectFields"></div>
+        <button type="button" id="addProj" class="btn btn-sm btn-outline-primary mb-2">+ Add Project</button>
+
+        <h4 class="mt-4">Skills</h4>
+        <div id="skillsFields">
+          <input type="text" class="form-control mb-2 skill-input" placeholder="Skill Name">
+          <input type="number" class="form-control mb-2 skill-input" placeholder="Proficiency % (0-100)">
+        </div>
+        <button type="button" id="addSkill" class="btn btn-sm btn-outline-primary mb-2">+ Add Skill</button>
+
+        <button id="downloadBtn" class="btn btn-primary mt-3">Download PDF</button>
+      </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="col-md-6">
+      <div id="cvPreview" class="cv-preview p-4 bg-white rounded shadow-sm template1">
+        <h2 id="preview-name">Your Name</h2>
+        <p id="preview-email">Email: your.email@example.com</p>
+        <p id="preview-phone">Phone: 123-456-7890</p>
+        <p id="preview-linkedin">LinkedIn: linkedin.com/in/username</p>
+
+        <h5 class="mt-3">Education</h5>
+        <ul id="preview-education"></ul>
+
+        <h5 class="mt-3">Experience</h5>
+        <ul id="preview-experience"></ul>
+
+        <h5 class="mt-3">Projects</h5>
+        <ul id="preview-projects"></ul>
+
+        <h5 class="mt-3">Skills</h5>
+        <div id="preview-skills"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/cv_builder.js') }}"></script>
+{% endblock %}

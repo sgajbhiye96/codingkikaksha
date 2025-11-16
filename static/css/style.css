@@ -1,0 +1,120 @@
+/* Hero Overlay & Text */
+.hero .overlay {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  z-index:1;
+}
+.hero-content {
+  position: relative;
+  z-index:3;
+}
+.hero-btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Floating Cards at Edges */
+.floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  pointer-events: none;
+  backdrop-filter: blur(5px);
+  z-index: 2;
+  animation: floatUpDown 6s ease-in-out infinite;
+}
+.floating-card img {
+  margin-right: 6px;
+  display: block;
+}
+
+/* Positions */
+.floating-1 { top: 10%; left: 5%; }
+.floating-2 { top: 20%; right: 5%; }
+.floating-3 { bottom: 15%; left: 10%; }
+.floating-4 { bottom: 20%; right: 10%; }
+.floating-5 { top: 50%; right: 15%; }
+
+/* Floating Animation */
+@keyframes floatUpDown {
+  0%   { transform: translateY(0px); opacity: 0.7; }
+  50%  { transform: translateY(-15px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.7; }
+}
+
+/* Hover effect on floating cards */
+.floating-card:hover {
+  transform: scale(1.2) translateY(-5px);
+  box-shadow: 0 12px 25px rgba(255,255,255,0.8);
+  cursor: pointer;
+}
+
+/* Category Cards */
+.category-card-modern { display:block; padding:30px 20px; background:#fff; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); text-decoration:none; color:#333; transition:all 0.3s ease; }
+.category-card-modern .icon { font-size:2rem; margin-bottom:10px; }
+.category-card-modern .title { font-weight:600; font-size:1.1rem; }
+.category-card-modern:hover { transform:translateY(-8px); box-shadow:0 8px 20px rgba(0,0,0,0.15); color:#2575fc; }
+
+/* Course Cards */
+.hover-card { transition:all 0.3s ease; }
+.hover-card:hover { transform:translateY(-8px); box-shadow:0 8px 20px rgba(0,0,0,0.2) !important; }
+
+/* Testimonials */
+#testimonialCarousel .card { border-radius:12px; border:none; }
+#testimonialCarousel .card img { object-fit:cover; }
+#testimonialCarousel .card p { font-size:1.1rem; color:#444; }
+
+/* Achievements */
+.achievement-card { background:#fff; transition:all 0.3s ease; }
+.achievement-card:hover { transform:translateY(-6px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+.achievement-card h2 { font-weight:700; margin-bottom:8px; }
+
+/* Counter Animation */
+.counter { animation: counterUp 2s ease-in-out; }
+@keyframes counterUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
+
+.cv-preview {
+  min-height: 500px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cv-preview h2 { font-weight: 700; margin-bottom: 10px; }
+.cv-preview h5 { font-weight: 600; margin-top: 15px; }
+.cv-preview ul { padding-left: 20px; }
+
+.skill-bar {
+  background: #ddd;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  background: #2575fc;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 1s ease-in-out;
+}
+
+/* Dark Template */
+.template2 {
+  background: #222;
+  color: #fff;
+}
+.template2 .skill-fill { background: #ff512f; }

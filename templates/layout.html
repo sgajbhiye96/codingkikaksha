@@ -71,7 +71,8 @@
           <li><a href="{{ url_for('home') }}" class="text-light text-decoration-none">Home</a></li> 
           <li><a href="{{ url_for('courses') }}" class="text-light text-decoration-none">Courses</a></li> 
           <li><a href="#" class="text-light text-decoration-none">Blogs</a></li> 
-          <li><a href="#" class="text-light text-decoration-none">CV Builder</a></li> 
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/cv_builder.css') }}">
+
         </ul> 
       </div> 
       <div class="col-md-3"> 

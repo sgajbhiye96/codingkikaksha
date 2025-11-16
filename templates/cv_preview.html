@@ -1,0 +1,6 @@
+<h2>{{ cv.full_name }}</h2>
+<p>Email: {{ cv.email }} | Phone: {{ cv.phone }}</p>
+<hr>
+<a href="{{ url_for('download_cv', cv_id=cv.id, format='pdf') }}" class="btn btn-danger">Download PDF</a>
+<a href="{{ url_for('download_cv', cv_id=cv.id, format='docx') }}" class="btn btn-primary">Download DOCX</a>
+<a href="{{ url_for('download_cv', cv_id=cv.id, format='txt') }}" class="btn btn-secondary">Download TXT</a>

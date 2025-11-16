@@ -1,0 +1,8 @@
+version: 3
+agent:
+  authtoken: 2gfqAKPldaBmVQPTe9gJijw8C2M_76GHsuQMQ5QJn7Mk34TTX
+endpoints:
+  - name: codingkaksha
+    url: perfect-distinctly-roughy.ngrok-free.app
+    upstream:
+      url: http://localhost:5000

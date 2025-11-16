@@ -15,6 +15,12 @@ load_dotenv()
 import os
 from datetime import datetime
 from functools import wraps
+
+from flask import send_file
+import io
+from docx import Document
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
 # --------------------
 # App Config
 # --------------------
@@ -356,9 +362,112 @@ def delete_blog(blog_id):
 def blog_detail(blog_id):
     blog = Blog.query.get_or_404(blog_id)
     return render_template("blog_detail.html", blog=blog)
-@app.route("/cv-builder")
+@app.route("/cv-builder", methods=["GET", "POST"])
+@login_required
 def cv_builder():
+    if request.method == "POST":
+        cv = CV(
+            user_id=current_user.id,
+            full_name=request.form["full_name"],
+            email=request.form["email"],
+            phone=request.form["phone"],
+            summary=request.form["summary"],
+            skills=request.form["skills"],
+            experience=request.form["experience"],
+            education=request.form["education"],
+            projects=request.form["projects"],
+        )
+        db.session.add(cv)
+        db.session.commit()
+        flash("✅ CV Saved! You can now export it.", "success")
+        return redirect(url_for("my_cv", cv_id=cv.id))
     return render_template("cv_builder.html")
+
+
+
+@app.route("/cv/<int:cv_id>")
+@login_required
+def my_cv(cv_id):
+    cv = CV.query.get_or_404(cv_id)
+    return render_template("cv_preview.html", cv=cv)
+
+@app.route("/cv/<int:cv_id>/download/<format>")
+@login_required
+def download_cv(cv_id, format):
+    cv = CV.query.get_or_404(cv_id)
+
+    if format == "txt":
+        content = f"""
+        {cv.full_name}
+        Email: {cv.email} | Phone: {cv.phone}
+
+        Summary:
+        {cv.summary}
+
+        Skills:
+        {cv.skills}
+
+        Experience:
+        {cv.experience}
+
+        Education:
+        {cv.education}
+
+        Projects:
+        {cv.projects}
+        """
+        return send_file(
+            io.BytesIO(content.encode("utf-8")),
+            as_attachment=True,
+            download_name="cv.txt",
+            mimetype="text/plain"
+        )
+
+    elif format == "docx":
+        doc = Document()
+        doc.add_heading(cv.full_name, 0)
+        doc.add_paragraph(f"Email: {cv.email} | Phone: {cv.phone}")
+        doc.add_heading("Summary", level=1)
+        doc.add_paragraph(cv.summary or "")
+        doc.add_heading("Skills", level=1)
+        doc.add_paragraph(cv.skills or "")
+        doc.add_heading("Experience", level=1)
+        doc.add_paragraph(cv.experience or "")
+        doc.add_heading("Education", level=1)
+        doc.add_paragraph(cv.education or "")
+        doc.add_heading("Projects", level=1)
+        doc.add_paragraph(cv.projects or "")
+        buffer = io.BytesIO()
+        doc.save(buffer)
+        buffer.seek(0)
+        return send_file(buffer, as_attachment=True, download_name="cv.docx")
+
+    elif format == "pdf":
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer)
+        styles = getSampleStyleSheet()
+        story = []
+        story.append(Paragraph(f"<b>{cv.full_name}</b>", styles["Title"]))
+        story.append(Paragraph(f"Email: {cv.email} | Phone: {cv.phone}", styles["Normal"]))
+        story.append(Spacer(1, 12))
+        story.append(Paragraph("Summary", styles["Heading2"]))
+        story.append(Paragraph(cv.summary or "", styles["Normal"]))
+        story.append(Paragraph("Skills", styles["Heading2"]))
+        story.append(Paragraph(cv.skills or "", styles["Normal"]))
+        story.append(Paragraph("Experience", styles["Heading2"]))
+        story.append(Paragraph(cv.experience or "", styles["Normal"]))
+        story.append(Paragraph("Education", styles["Heading2"]))
+        story.append(Paragraph(cv.education or "", styles["Normal"]))
+        story.append(Paragraph("Projects", styles["Heading2"]))
+        story.append(Paragraph(cv.projects or "", styles["Normal"]))
+        doc.build(story)
+        buffer.seek(0)
+        return send_file(buffer, as_attachment=True, download_name="cv.pdf", mimetype="application/pdf")
+
+    else:
+        flash("❌ Unsupported format!", "danger")
+        return redirect(url_for("my_cv", cv_id=cv.id))
+
 
 # 404 Not Found
 @app.errorhandler(404)
@@ -380,5 +489,5 @@ def forbidden(e):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0", port=5000, debug=False)
-    # app.run(host="0.0.0.0", port=5000, debug=True)
+    # app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -2,52 +2,39 @@
 {% block content %}
 
 <!-- Hero Section -->
-<!-- Hero Section with Auto-Sliding Background & Overlay -->
-<!-- Hero Section with Auto-Sliding Background & Overlay -->
-<!-- Hero Section with Auto-Sliding Gradient Background -->
-<section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+<section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
   <div class="carousel-inner">
-
-    <!-- Slide 1 -->
     <div class="carousel-item active">
-      <div class="hero d-flex align-items-center text-light text-center position-relative" style="background: linear-gradient(135deg, #6a11cb, #2575fc); min-height: 90vh;">
+      <div class="hero d-flex align-items-center text-light text-center position-relative" 
+           style="background: linear-gradient(135deg, #6a11cb, #2575fc); min-height: 90vh; overflow: hidden;">
+        
+        <!-- Overlay -->
         <div class="overlay"></div>
-        <div class="container hero-content">
+
+        <!-- Hero Text -->
+        <div class="container hero-content position-relative">
           <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Learn. Upskill. Succeed 🚀</h1>
-          <p class="lead mt-3 animate__animated animate__fadeInUp">High-quality, affordable courses to boost your career.</p>
+          <p class="lead mt-3 animate__animated animate__fadeInUp">
+            High-quality, affordable courses to boost your career.
+          </p>
           <div class="mt-4">
             <a href="{{ url_for('courses') }}" class="btn btn-light btn-lg me-3 shadow-sm hero-btn">Explore Courses</a>
             <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg shadow-sm hero-btn">Join Now</a>
           </div>
         </div>
+
+        <!-- Floating Cards (Edges) -->
+        <div class="floating-card floating-1"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="24" alt="Python"> Python</div>
+        <div class="floating-card floating-2"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="24" alt="Data Science"> Data Science</div>
+        <div class="floating-card floating-3"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" width="24" alt="Design"> Design</div>
+        <div class="floating-card floating-4"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="24" alt="Business"> Business</div>
+        <div class="floating-card floating-5"><img src="https://cdn-icons-png.flaticon.com/512/1995/1995582.png" width="24" alt="AI & ML"> AI & ML</div>
+
       </div>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="carousel-item">
-      <div class="hero d-flex align-items-center text-light text-center position-relative" style="background: linear-gradient(135deg, #ff512f, #dd2476); min-height: 90vh;">
-        <div class="overlay"></div>
-        <div class="container hero-content">
-          <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Master Python & Data Science 📊</h1>
-          <p class="lead mt-3 animate__animated animate__fadeInUp">Hands-on projects with industry mentors.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="carousel-item">
-      <div class="hero d-flex align-items-center text-light text-center position-relative" style="background: linear-gradient(135deg, #00c6ff, #0072ff); min-height: 90vh;">
-        <div class="overlay"></div>
-        <div class="container hero-content">
-          <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Join 50K+ Learners 🎓</h1>
-          <p class="lead mt-3 animate__animated animate__fadeInUp">Grow your career with expert-led courses.</p>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Controls -->
+  <!-- Carousel Controls -->
   <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
   </button>
@@ -55,8 +42,6 @@
     <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
   </button>
 </section>
-
-
 
 
 <!-- Categories Section -->
@@ -96,7 +81,6 @@
 <section class="py-5">
   <div class="container">
     <h2 class="fw-bold mb-4 text-center">🔥 Trending Courses</h2>
-    
     <div id="trendingCoursesCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         {% for course in courses %}
@@ -118,8 +102,6 @@
         </div>
         {% endfor %}
       </div>
-
-      <!-- Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#trendingCoursesCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
       </button>
@@ -127,14 +109,13 @@
         <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
       </button>
     </div>
-
     <div class="text-center mt-3">
       <a href="{{ url_for('courses') }}" class="btn btn-primary">View All Courses</a>
     </div>
   </div>
 </section>
 
-<!-- Testimonials Section -->
+<!-- Testimonials -->
 <section class="py-5 bg-light">
   <div class="container text-center">
     <h2 class="fw-bold mb-5">💬 What Our Learners Say</h2>
@@ -159,8 +140,6 @@
         </div>
         {% endfor %}
       </div>
-
-      <!-- Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
       </button>
@@ -171,39 +150,37 @@
   </div>
 </section>
 
-<!-- Achievements Section -->
+<!-- Achievements -->
 <section class="py-5 bg-light">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-5">Our Achievements 🎯</h2>
-        <div class="row g-4 justify-content-center">
-            <div class="col-6 col-md-3">
-                <div class="achievement-card p-4 shadow-sm rounded">
-                    <h2 class="text-primary">50K+</h2>
-                    <p>Learners</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="achievement-card p-4 shadow-sm rounded">
-                    <h2 class="text-success">500+</h2>
-                    <p>Courses</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="achievement-card p-4 shadow-sm rounded">
-                    <h2 class="text-warning">100+</h2>
-                    <p>Instructors</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="achievement-card p-4 shadow-sm rounded">
-                    <h2 class="text-danger">4.8⭐</h2>
-                    <p>Avg Rating</p>
-                </div>
-            </div>
+  <div class="container text-center">
+    <h2 class="fw-bold mb-5">Our Achievements 🎯</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-6 col-md-3">
+        <div class="achievement-card p-4 shadow-sm rounded">
+          <h2 class="text-primary counter">50K+</h2>
+          <p>Learners</p>
         </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="achievement-card p-4 shadow-sm rounded">
+          <h2 class="text-success counter">500+</h2>
+          <p>Courses</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="achievement-card p-4 shadow-sm rounded">
+          <h2 class="text-warning counter">100+</h2>
+          <p>Instructors</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="achievement-card p-4 shadow-sm rounded">
+          <h2 class="text-danger counter">4.8⭐</h2>
+          <p>Avg Rating</p>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
-
-
 
 {% endblock %}
