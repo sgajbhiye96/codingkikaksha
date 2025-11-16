@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb" }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "app.py" }
+  ],
+  "env": {
+    "SECRET_KEY": "@SECRET_KEY",
+    "DB_HOST": "@DB_HOST",
+    "DB_PORT": "@DB_PORT",
+    "DB_USER": "@DB_USER",
+    "DB_PASSWORD": "@DB_PASSWORD",
+    "DB_NAME": "@DB_NAME",
+    "MAIL_USERNAME": "@MAIL_USERNAME",
+    "MAIL_PASSWORD": "@MAIL_PASSWORD",
+    "BASE_URL": "@BASE_URL"
+  }
+}
